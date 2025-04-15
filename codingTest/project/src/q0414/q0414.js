@@ -20,9 +20,8 @@
 //
 //console.log(`Math.random() = ${Math.random()}`);
 
+//로또
 let numList = [];
-
-
 for(let size=0;size<6;){
     let num = Math.floor(Math.random()*45)+1;
     if(isEquals(num)){
@@ -42,6 +41,8 @@ function isEquals(num){
     return true;
 }
 
+
+// 클래스 만들기
 class Wizard{
      health=0;
      mana=0;
