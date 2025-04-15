@@ -44,9 +44,9 @@ function isEquals(num){
 
 // 클래스 만들기
 class Wizard{
-     health=0;
-     mana=0;
-     armor=0;
+     let health=0;
+     let mana=0;
+     let armor=0;
 
     constructor(health,mana,armor){
     this.health= health;
