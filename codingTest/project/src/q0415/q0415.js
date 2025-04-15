@@ -21,12 +21,72 @@
 
 
 // 이건 문자열 거꾸로
-        let newArray=[];
-        let size=0;
-        let input = prompt("입력");
-        for(let i = input.length-1; i>=0; i--){
-            newArray[size]=input.charAt(i);
-            size++;
+//        let newArray=[];
+//        let size=0;
+//        let input = prompt("입력");
+//        for(let i = input.length-1; i>=0; i--){
+//            newArray[size]=input.charAt(i);
+//            size++;
+//        }
+//        let real=newArray.join('');
+//        console.log(`출력: +${real}`);
+//
+class Toy{
+    height= prompt("입력");
+
+     isTall(){
+        if(this.height > 150){
+        console.log("YES");
+        }else{
+         console.log("NO");
         }
-        let real=newArray.join('');
-        console.log(`출력: +${real}`);
+
+     }
+}
+
+const toy=new Toy();
+toy.isTall()
+
+class AvgScore{
+
+
+     avg(){
+     let numbs = prompt("좋아하는 숫자 3개 입력");
+     let realNumbs=numbs.split(" ");
+     let total = 0;
+        for(let i =0 ; i< 3; i++){
+        total+= Number(realNumbs[i]);
+        }
+        total = Math.floor(total/3);
+       console.log(total);
+     }
+}
+const avgScore=new AvgScore();
+avgScore.avg()
+
+
+class Str{
+
+
+     input(){
+     let str = prompt("문자열 입력");
+     for(let i =0; i< str.length; i++){
+        let temp ="";
+        if(i == str.length-1){
+        temp= str[i]+" 끄읏";
+        console.log(temp);
+        break;
+        }
+
+        temp = str[i]+ str[i+1];
+        console.log(temp);
+     }
+
+     }
+}
+const x = new Str();
+x.input();
+
+class{
+   num =;
+}

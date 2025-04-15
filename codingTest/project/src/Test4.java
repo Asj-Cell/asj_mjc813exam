@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Scanner;
 
 public class Test4 {
@@ -8,6 +11,5 @@ public class Test4 {
 //        String input = scanner.nextLine();
 //        String result = new StringBuilder(input).reverse().toString();
 //        System.out.println("출력: "+result);
-
     }
 }
