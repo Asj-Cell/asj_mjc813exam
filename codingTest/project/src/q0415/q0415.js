@@ -65,28 +65,3 @@ const avgScore=new AvgScore();
 avgScore.avg()
 
 
-class Str{
-
-
-     input(){
-     let str = prompt("문자열 입력");
-     for(let i =0; i< str.length; i++){
-        let temp ="";
-        if(i == str.length-1){
-        temp= str[i]+" 끄읏";
-        console.log(temp);
-        break;
-        }
-
-        temp = str[i]+ str[i+1];
-        console.log(temp);
-     }
-
-     }
-}
-const x = new Str();
-x.input();
-
-class{
-   num =;
-}
