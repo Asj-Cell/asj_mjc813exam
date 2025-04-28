@@ -29,15 +29,16 @@ public class ClientRead implements Runnable{
         } catch (IOException e) {
             System.out.println(e.toString());
         }finally {
-          client.closeAll();
+          client.close();
         }
     }
 
-    public void close() {
+    public synchronized void close() throws IOException {
         if (refit) {
             return;
         }
-            refit = true;
+        client.close();
+        refit = true;
 
     }
 }

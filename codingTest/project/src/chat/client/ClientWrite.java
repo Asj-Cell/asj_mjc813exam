@@ -8,6 +8,7 @@ public class ClientWrite implements Runnable{
     private final Client client;
     private final DataOutputStream output;
     private boolean refit = false;
+
     public ClientWrite(DataOutputStream output,Client client) {
         this.output = output;
         this.client = client;
@@ -18,8 +19,9 @@ public class ClientWrite implements Runnable{
         try {
             Scanner scanner = new Scanner(System.in);
             nameInit(scanner);
+            String word=":";
             while (true) {
-                String word = scanner.nextLine();
+                 word = scanner.nextLine();
                 if (word.startsWith("/change|")) {
                     output.writeUTF(word);
                 } else if (word.equals("/users")) {
@@ -34,9 +36,9 @@ public class ClientWrite implements Runnable{
 
             }
         } catch (IOException e) {
-            System.out.println(e.toString());
+            throw new RuntimeException(e);
         }finally {
-            client.closeAll();
+            client.close();
         }
     }
 
@@ -46,11 +48,11 @@ public class ClientWrite implements Runnable{
         output.writeUTF("/join|"+name);
     }
 
-    public void close() throws IOException {
+    public synchronized void close() throws IOException {
         if (refit) {
             return;
         }
-        output.close();
+        client.close();
         refit = true;
 
     }

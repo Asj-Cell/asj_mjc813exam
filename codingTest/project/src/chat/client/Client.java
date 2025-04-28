@@ -3,7 +3,9 @@ package chat.client;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.net.Socket;
+import java.util.ArrayList;
 
 import static chat.client.CloseAll.closeAll;
 
@@ -25,29 +27,27 @@ public class Client {
 
     public void start() throws IOException {
 
-            clientRead = new ClientRead(input,this);
-            clientWrite = new ClientWrite(output,this);
-            Thread clientReadThread = new Thread(clientRead);
-            Thread clientWriteThread = new Thread(clientWrite);
+        clientRead = new ClientRead(input, this);
+        clientWrite = new ClientWrite(output, this);
+        Thread clientReadThread = new Thread(clientRead);
+        Thread clientWriteThread = new Thread(clientWrite);
 
-            clientReadThread.start();
-            clientWriteThread.start();
-
-
+        clientReadThread.start();
+        clientWriteThread.start();
 
 
     }
-    public synchronized void closeAll() {
+
+    public synchronized void close() {
         if (refit) {
             return;
         }
         try {
-            clientRead.close();
-            clientWrite.close();
-            CloseAll.closeAll(socket, input, output);
-            refit = true;
+            socket.close();
         } catch (IOException e) {
             throw new RuntimeException(e);
+        } finally {
+            refit = true;
         }
 
     }

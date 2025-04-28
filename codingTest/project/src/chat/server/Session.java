@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.net.Socket;
 import java.util.ArrayList;
 
+import static chat.client.CloseAll.closeAll;
+
 public class Session implements Runnable{
     private final static String DELIMITER = "\\|";
     private final Socket socket;
@@ -40,13 +42,13 @@ public class Session implements Runnable{
                     setUsername(name);
 
                 } else if (word.startsWith("/message|")) {
-                    String[] split = word.split(DELIMITER);
-                    String message = split[1];
-                    if (message.isEmpty()) {
-                        sessionManager.sendAll("공백을 출력할 수 없습니다");
-                        continue;
+                    if (word.length() == 9) {
+                        word = "/message| ";
                     }
-                    sessionManager.sendAll("["+username+"]: "+message);
+                    String[] split = word.split(DELIMITER);
+
+                    String message = split[1];
+                    sessionManager.sendAll("["+username+"] "+message);
 
                 } else if (word.startsWith("/change|")) {
                     String[] split = word.split(DELIMITER);
@@ -63,9 +65,11 @@ public class Session implements Runnable{
                     sessionManager.sendAll(list.toString());
 
                 } else if (word.equals("/exit")) {
+                    System.out.println(username+"님이 접속을 종료합니다.");
                     sessionManager.sendAll(username+"님이 접속을 종료합니다.");
                     sessionManager.remove(this);
                     close();
+                    break;
 
                 } else {
                     tosend("잘못된 문법의 입력 입니다.");
@@ -75,19 +79,19 @@ public class Session implements Runnable{
             
         } catch (IOException e) {
             throw new RuntimeException(e);
-        }finally {
-            sessionManager.closeAll();
+        } finally {
+            close();
         }
     }
 
 
-    public void close() {
+    public synchronized void close() {
         if (refit) {
             return;
         }
-        CloseAll.closeAll(socket,input,output);
-        sessionManager.remove(this);
+        closeAll(socket,input,output);
         refit = true;
+        sessionManager.remove(this);
     }
 
     public String getUsername() {
