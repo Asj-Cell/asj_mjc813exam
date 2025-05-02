@@ -10,7 +10,7 @@ public class JavaTest1 {
 
     public static int[][] solution(int n) {
         int[][] intArray = new int[n][n];
-
+        return intArray;
     }
 
     public int goRight(int row,int[][] intArray, int start,int end,int number) {
