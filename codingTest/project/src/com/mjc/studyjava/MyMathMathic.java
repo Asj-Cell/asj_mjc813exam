@@ -55,7 +55,7 @@ public class MyMathMathic {
     }
 
     public static long square(int a, byte b) {
-        int result = 1;
+        long result = 1;
         for (int i = 0; i < b; i++) {
             result *= a;
         }
