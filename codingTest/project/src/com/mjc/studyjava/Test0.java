@@ -1,14 +1,26 @@
 package com.mjc.studyjava;
 
+import java.math.BigDecimal;
+
 public class Test0 {
 
 
     public static void main(String[] args) {
 
-        int result1 = MyMathMathicV2.sumOfFav(1, 5);
-        int result2 = MyMathMathicV2.sumOfLoop(1, 5);
+        String s = MyMathMathicV3.makeEncryptString("mjc813", 5);
+        System.out.println(s);
+        String s1 = MyMathMathicV3.makeDecryptString("A8dkIm8Tkd4jKLi9hcu4Rsa893saw1kszNm3", 5);
+        System.out.println(s1);
+        int total=0;
+        int a = 90;
+        for (int i = a; i <= 100; i++) {
+            total += i;
+        }
+        System.out.println(total);
 
-        System.out.println(result1);
-        System.out.println(result2);
+        BigDecimal bigDecimal = MyMathMathicV3.getBigDecimal(3643, 5630932);
+        System.out.println(bigDecimal);
+        int i =0;
+
     }
 }
