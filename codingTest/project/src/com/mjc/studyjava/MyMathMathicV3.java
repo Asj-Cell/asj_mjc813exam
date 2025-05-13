@@ -171,18 +171,14 @@ public class MyMathMathicV3 {
         StringBuilder sb = new StringBuilder();
         int iter=0;
         if (n >= 5) {
-            for (int i = 0; i <= (text.length() * n); i++) {
-                if (i != 0) {
-                    if (i % n == 0) {
-                        sb.append(text.charAt(iter));
-                        iter++;
-                        continue;
-                    }
+            for (int i = 1; i <= (text.length() * n); i++) {
+                if (i % n == 0) {
+                    sb.append(text.charAt(iter));
+                    iter++;
+                    continue;
                 }
-
                 int selectNum = (int) (Math.random() * array.length());
                 sb.append(array.charAt(selectNum));
-
             }
         }
         return sb.toString();
