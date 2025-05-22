@@ -12,5 +12,7 @@ public class Test0 {
         List<Integer> integers1 = new ArrayList<>();
         Cloneable array = new ArrayList<Object>();
 
+
+
     }
 }
