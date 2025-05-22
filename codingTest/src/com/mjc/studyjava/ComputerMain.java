@@ -19,7 +19,7 @@ public class ComputerMain {
 //        System.out.println(com3);
 //        System.out.println(com4);
 //        System.out.println(com5);
-
+        System.out.println("com1.getName() = " + com1.getName());
 //        com2.off();
 //        com3.off();
 //        com4.off();

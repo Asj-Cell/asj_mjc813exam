@@ -73,12 +73,6 @@ public class Computer {
     public void clickRightButton(int x,int y) {
         mouse.clickRightButton(x, y);
     }
-    public String getName() {
-        if (name == null) {
-            return "조립중입니다.";
-        }
-        return name;
-    }
 
 
     public String getCpu() {
