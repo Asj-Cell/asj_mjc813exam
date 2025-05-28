@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 public class Main {
     public static void main(String[] args) throws Exception{
-
+        
         ArrayList<ClassS> school = new ArrayList<>();
         double totalko =0;
         double totalen =0;
