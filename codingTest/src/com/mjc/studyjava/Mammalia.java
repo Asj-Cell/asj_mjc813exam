@@ -5,7 +5,6 @@ public class Mammalia extends Animal{
     public Mammalia(String name ,int age) {
         super(name,age);
     }
-
     void feedingMilk() {
         System.out.println(getName() + " 젖을 먹인다.");
     }
@@ -15,6 +14,16 @@ public class Mammalia extends Animal{
         if (feed instanceof String foodName ) {
             System.out.println(getName() + "은" + foodName + "를 먹는다.");
         }
+    }
+
+    @Override
+    public String getName() {
+        return super.getName();
+    }
+
+    @Override
+    public int getAge() {
+        return super.getAge();
     }
 
     @Override

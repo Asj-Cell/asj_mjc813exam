@@ -9,6 +9,15 @@ public class Bird extends Animal {
         this.wings = wings;
 
     }
+    @Override
+    public String getName() {
+        return super.getName();
+    }
+
+    @Override
+    public int getAge() {
+        return super.getAge();
+    }
 
     void flap() {
         System.out.println(getName()+wings +" 날개짓한다.");
