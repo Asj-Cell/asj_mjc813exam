@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class Test {
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
-
+        
         System.out.print("입력:");
         int layer = input.nextInt();
         input.nextLine();
