@@ -1,5 +1,8 @@
 package after0602.q0604.thread;
 
+import java.util.concurrent.*;
+import java.util.concurrent.atomic.AtomicInteger;
+
 public class Test0 {
 
 
@@ -8,10 +11,14 @@ public class Test0 {
         Thread thread = new Thread(test, "Test_Thread");
         thread.start();
 
-        for (int i = 0; i < 5; i++) {
+
+
+        thread.join();
+       for (int i = 0; i < 5; i++) {
             System.out.println("["+Thread.currentThread().getName()+"] :반복 실행 "+(i+1)+"번째");
             Thread.sleep(1000);
         }
+
     }
     static class Test implements Runnable{
 

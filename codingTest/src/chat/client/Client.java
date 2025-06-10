@@ -22,7 +22,6 @@ public class Client {
         this.socket = socket;
         this.input = new DataInputStream(socket.getInputStream());
         this.output = new DataOutputStream(socket.getOutputStream());
-
     }
 
     public void start() throws IOException {
