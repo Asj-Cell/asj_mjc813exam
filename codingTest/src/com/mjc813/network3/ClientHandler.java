@@ -15,7 +15,6 @@ public class ClientHandler implements Runnable {
     private final ClientHandlerManager manager;
     private PrintWriter writer;
     private String clientAddress;
-
     public ClientHandler(Socket socket, ClientHandlerManager manager) {
         this.clientSocket = socket;
         this.manager = manager;
@@ -31,7 +30,7 @@ public class ClientHandler implements Runnable {
             this.writer = new PrintWriter(
                     clientSocket.getOutputStream(), true, UTF_8
             );
-            manager.addClient(this.writer);
+            manager.addClient(this.writer,this.clientSocket);
             String connectMessage = "[서버] " + clientAddress + " 님이 입장했습니다.";
             System.out.println(connectMessage);
             manager.sendMessage(connectMessage);
@@ -39,7 +38,11 @@ public class ClientHandler implements Runnable {
             String clientMessage;
             while ((clientMessage = reader.readLine()) != null) {
                 if (clientMessage.equals("exit")) {
-                    manager.removeClient(this.writer);
+                    manager.removeClient(this.clientSocket);
+                    break;
+                }
+                if (clientMessage.equals("exitAll")) {
+                    manager.removeAllClient();
                     break;
                 }
                 String broadcastMsg = "[" + clientAddress + "] " + clientMessage;
@@ -54,7 +57,7 @@ public class ClientHandler implements Runnable {
             System.err.println(clientAddress + " 클라이언트 핸들러 오류: " + e.getMessage());
         } finally {
             if (writer != null) {
-                manager.removeClient(writer);
+                manager.removeClient(clientSocket);
             }
             String disconnectMessage = "[서버] " + clientAddress + " 님이 퇴장했습니다.";
             System.out.println(disconnectMessage);

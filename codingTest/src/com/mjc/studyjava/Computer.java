@@ -5,12 +5,14 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Objects;
+import java.util.Stack;
 
 
 @Getter
 @Setter
 @Data
-public class Computer {
+public class Computer implements Comparable<Computer>{
 
     private String name;
     private String cpu;
@@ -18,49 +20,26 @@ public class Computer {
     private String storage;
     private Graphic graphic;
     private Mouse mouse = new Mouse();
+    private Integer price;
+    private Integer qty;
 
-    public Computer() {
-        this.name = "computer";
-        this.cpu = null;
-        this.ram = null;
-        this.storage = null;
-        this.graphic = null;
-    }
-    public Computer(String name) {
-        this.name = name;
-        this.cpu = null;
-        this.ram = null;
-        this.storage = null;
-        this.graphic = null;
-    }
-    public Computer(String name,String cpu) {
-        this.name = name;
-        this.cpu = cpu;
-        this.ram = null;
-        this.storage = null;
-        this.graphic = null;
-    }
-    public Computer(String name,String cpu,String ram) {
-        this.name = name;
-        this.cpu = cpu;
-        this.ram = ram;
-        this.storage = null;
-        this.graphic = null;
-    }
-    public Computer(String name,String cpu,String ram,String storage) {
-        this.name = name;
-        this.cpu = cpu;
-        this.ram = ram;
-        this.storage = storage;
-        this.graphic = null;
-    }
-    public Computer(String name, String cpu, String ram, String storage, Graphic graphic) {
+
+    public Computer(String name, String cpu, String ram, String storage, Graphic graphic, Integer price, Integer qty) {
         this.name = name;
         this.cpu = cpu;
         this.ram = ram;
         this.storage = storage;
         this.graphic = graphic;
+        this.mouse = mouse;
+        this.price = price;
+        this.qty = qty;
     }
+
+
+
+
+
+
     public void start() {
         System.out.println(name+"이 켜졌습니다.");
     }
@@ -109,8 +88,33 @@ public class Computer {
 
     @Override
     public String toString() {
-        return "Computer{ " + getCpu()+", " + getRam()+", " + getStorage()+", " + getGraphic() + "}";
+        return "Computer{" +
+                "name='" + name + '\'' +
+                ", cpu='" + cpu + '\'' +
+                ", ram='" + ram + '\'' +
+                ", storage='" + storage + '\'' +
+                ", graphic=" + graphic +
+                ", mouse=" + mouse +
+                ", price=" + price +
+                ", qty=" + qty +
+                '}';
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Computer computer = (Computer) o;
+        return Objects.equals(name, computer.name) && Objects.equals(cpu, computer.cpu) && Objects.equals(ram, computer.ram) && Objects.equals(storage, computer.storage) && graphic == computer.graphic && Objects.equals(mouse, computer.mouse);
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, cpu, ram, storage, graphic, mouse);
+    }
+
+    @Override
+    public int compareTo(Computer o) {
+        return this.getCpu().compareTo(o.getCpu());
+
+    }
 }
