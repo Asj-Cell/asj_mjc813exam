@@ -1,6 +1,6 @@
 package after0602.q0618;
 
-public class Member {
+public class Member implements Comparable<Member>{
 
     private String name;
     private String id;
@@ -38,10 +38,11 @@ public class Member {
 
     @Override
     public String toString() {
-        return "Member{" +
-                "name='" + name + '\'' +
-                ", id='" + id + '\'' +
-                ", age=" + age +
-                '}';
+        return "Member[age=" + age + "]";
+    }
+
+    @Override
+    public int compareTo(Member o) {
+        return Integer.compare(this.getAge(), o.getAge());
     }
 }
