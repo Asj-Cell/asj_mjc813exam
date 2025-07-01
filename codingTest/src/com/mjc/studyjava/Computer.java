@@ -117,4 +117,7 @@ public class Computer implements Comparable<Computer>{
         return this.getCpu().compareTo(o.getCpu());
 
     }
+
+//    public int getPrice() {
+//    }
 }
