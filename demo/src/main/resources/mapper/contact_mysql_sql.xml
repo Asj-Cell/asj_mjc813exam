@@ -7,7 +7,7 @@
         INSERT INTO contact_tbl
             (name, phone_number, zip_number, email)
         VALUES
-            (#{name}, #{phoneNumber}, #{zipNumber}, #{email})
+            (#{name}, #{phoneNumber}, #{zipNumber}, #{email})ㅣㅣㅣㅣㅎ8ㅛ혀ㅛ효효혀ㅛㅎ혀ㅛㅎ
     </insert>
 
     <select id="selectAll" resultType="com.example.demo.dto.ContactDto">
