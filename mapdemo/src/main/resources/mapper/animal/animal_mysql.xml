@@ -53,7 +53,7 @@
             id
              , name
              , age
-        
+
              , kind
         FROM animal_tbl
         <if test='searchWord != null and searchWord != ""'>
