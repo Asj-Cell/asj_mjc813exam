@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Controller
 public class MemberController {
 
@@ -39,7 +42,16 @@ public class MemberController {
 
     }
 
-
+    @GetMapping("/members/list")
+    public String list(MemberDto memberDto, Model model) {
+        List<MemberDto> arrayList = memberRepository.findAll(memberDto);
+//        arrayList.add(new MemberDto("aaa1","bbb1","ccc1","ddd1"));
+//        arrayList.add(new MemberDto("aaa2","bbb2","ccc2","ddd2"));
+//        arrayList.add(new MemberDto("aaa3","bbb3","ccc3","ddd3"));
+//        arrayList.add(new MemberDto("aaa4","bbb4","ccc4","ddd4"));
+        model.addAttribute("list", arrayList);
+        return "member/members";
+    }
 
 
 }

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>회원 목록</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .header {
+            background-color: #007bff;
+            color: white;
+            padding: 2rem;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .member-card {
+            transition: transform 0.2s;
+        }
+        .member-card:hover {
+            transform: scale(1.02);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .card-body div {
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
+
+<!-- 헤더 -->
+<div class="header">
+    <h1 class="display-4">회원 목록</h1>
+    <p class="lead">등록된 회원 정보를 확인하세요</p>
+</div>
+
+<!-- 회원 목록 (카드 형식) -->
+<div class="container">
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        {{#list}}
+        <div class="col">
+            <div class="card member-card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">이름: {{name}}</h5>
+                    <div><strong>닉네임:</strong> {{nickName}}</div>
+                    <div><strong>아이디:</strong> {{userId}}</div>
+                </div>
+                <div class="card-footer text-end">
+                    <button class="btn btn-primary btn-sm me-2">수정</button>
+                    <button class="btn btn-danger btn-sm">삭제</button>
+                </div>
+            </div>
+        </div>
+        {{/list}}
+    </div>
+</div>
+
+<!-- 대체 테이블 형식 (선택 사항) -->
+<div class="container mt-5">
+    <h3>테이블 형식으로 보기</h3>
+    <table class="table table-striped table-hover">
+        <thead>
+        <tr>
+            <th scope="col">이름</th>
+            <th scope="col">닉네임</th>
+            <th scope="col">아이디</th>
+            <th scope="col">작업</th>
+        </tr>
+        </thead>
+        <tbody>
+        {{#list}}
+        <tr>
+            <td>{{this.name}}</td>
+            <td>{{this.nickName}}</td>
+            <td>{{this.userId}}</td>
+            <td>
+                <button class="btn btn-primary btn-sm me-2">수정</button>
+                <button class="btn btn-danger btn-sm">삭제</button>
+            </td>
+        </tr>
+        {{/list}}
+        </tbody>
+    </table>
+</div>
+    {{^list}}
+<div>데이터가 없습니다</div>
+
+{{/list}}
+</body>
+</html>

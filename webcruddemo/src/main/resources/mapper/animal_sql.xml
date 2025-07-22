@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mjc813.mpacrud.animal.mybatis.AnimalMybatisMapper">
+    <insert id="insert" parameterType="AnimalDto">
+        INSERT INTO animal_tbl
+            (name
+            , age
+            , kind)
+        VALUES
+            (#{name}
+            , #{age}
+            , #{kind})
+    </insert>
+
+    <select id="findAll" resultType="AnimalDto">
+        SELECT
+            id
+            , name
+            , age
+            , kind
+        FROM
+            animal_tbl
+        ORDER BY
+            id
+    </select>
+
+    <update id="update" parameterType="AnimalDto">
+        update animal_tbl
+            SET
+              name=#{name}
+             , age =#{age}
+             , kind =#{kind}
+        WHERE id=#{id}
+    </update>
+
+    <delete id="delete" parameterType="AnimalDto">
+        DELETE FROM animal_tbl
+        WHERE id =#{id}
+    </delete>
+</mapper>
+

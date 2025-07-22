@@ -5,8 +5,9 @@
 
 <mapper namespace="com.mjc813.webcrud.member.IMemberMybatis">
 
-    <insert id="insert" parameterType="MemberDto" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO member_tbl(user_id,
+    <insert id="addMember" parameterType="MemberDto">
+        INSERT INTO member_tbl(
+                               user_id,
                                passwd,
                                name,
                                nick_name)
@@ -14,10 +15,21 @@
                 #{passwd},
                 #{name},
                 #{nickName}
-
                )
-
     </insert>
+
+
+    <select id="findAll"  resultType="MemberDto">
+        SELECT
+               user_id,
+               name,
+              nick_name
+
+            FROM member_tbl
+            ORDER BY user_id
+    </select>
+
+
 
 </mapper>
 
