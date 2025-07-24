@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8" />
+    <title>커피 정보 수정</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body class="container py-4">
+
+<h1 class="mb-4">커피 정보 수정</h1>
+
+{{#item}}
+<form method="post" action="./update?page={{page}}&rows={{rows}}" class="needs-validation" novalidate>
+    <input type="hidden" name="id" value="{{id}}"/>
+
+    <div class="mb-3">
+        <label for="name" class="form-label">커피 이름</label>
+        <input type="text" id="name" name="name" value="{{name}}" maxlength="10" class="form-control" required />
+        <div class="invalid-feedback">커피 이름을 입력해주세요.</div>
+    </div>
+
+    <div class="mb-3">
+        <label for="price" class="form-label">커피 가격 (원)</label>
+        <input type="number" id="price" name="price" value="{{price}}" min="0" class="form-control" required />
+        <div class="invalid-feedback">유효한 가격을 입력해주세요.</div>
+    </div>
+
+    <div class="mb-3">
+        <label for="source" class="form-label">커피 원두</label>
+        <input type="text" id="source" name="source" value="{{source}}" maxlength="10" class="form-control" required />
+        <div class="invalid-feedback">원두 정보를 입력해주세요.</div>
+    </div>
+
+    <div class="mb-3">
+        <label for="shots" class="form-label">커피 샷 수</label>
+        <input type="number" id="shots" name="shots" value="{{shots}}" min="0" class="form-control" required />
+        <div class="invalid-feedback">샷 수를 입력해주세요.</div>
+    </div>
+
+    <button type="submit" class="btn" style="background-color: #d1e7dd; color: #0f5132;")>수정하기</button>
+    <button type="submit" formaction="./delete?page={{page}}&rows={{rows}}" class="btn" style="background-color: crimson; color: cornflowerblue">삭제하기</button>
+    <button type="button" class="btn btn-secondary ms-2" onclick="location.href='./one?id={{id}}&page={{page}}&rows={{rows}}'">취소</button>
+</form>
+
+<script>
+    (() => {
+        'use strict';
+        const forms = document.querySelectorAll('.needs-validation');
+        Array.from(forms).forEach(form => {
+            form.addEventListener('submit', event => {
+                if (!form.checkValidity()) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+                form.classList.add('was-validated');
+            }, false);
+        });
+    })();
+</script>
+{{/item}}
+
+</body>
+</html>

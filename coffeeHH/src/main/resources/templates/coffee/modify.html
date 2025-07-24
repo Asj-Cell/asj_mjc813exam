@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>커피 정보 수정</title>
+</head>
+<body>
+    <h1> 커피 정보 수정 </h1>
+    {{#item}}
+    <form method="post" action="./update">
+        <label for="id">커피 id : </label>
+        <input type="text" id="id" name="id" value="{{id}}" maxlength="" style="display:none">
+        <label for="name">커피 이름 : </label>
+        <input type="text" id="name" name="name" value="{{name}}" maxlength="10"><br/>
+        <label for="price">커피 가격 : </label>
+        <input type="number" id="price" name="price" value="{{price}}" maxlength="30"><br/>
+        <label for="source">커피 원두 : </label>
+        <input type="text" id="source" name="source" value="{{source}}" maxlength="10"><br/>
+        <label for="shots">커피 샷 : </label>
+        <input type="number" id="shots" name="shots" value="{{shots}}" maxlength="10"><br/>
+        <input type="submit" value="수정">
+        <input type="submit" formaction="./delete" value="삭제"><br>
+        <button type="button" onclick="document.location.href='./one?id={{id}}'">취소</button>
+    </form>
+    {{/item}}
+</body>
+</html>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mjc813.coffee.service.CoffeeMapper">
+    <insert id="insert" parameterType="CoffeeDto" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO coffee_tbl
+            (name
+            , price
+            , source
+            , shots)
+        VALUES
+            (#{name}
+            , #{price}
+            , #{source}
+            , #{shots})
+    </insert>
+
+    <select id="selectAll" resultType="CoffeeDto" parameterType="PagingDto">
+        SELECT
+            id
+            , name
+            , price
+            , source
+            , shots
+        FROM
+            coffee_tbl
+        ORDER BY
+            id DESC
+        LIMIT #{rows} OFFSET #{off}
+    </select>
+
+    <select id="selectById" resultType="CoffeeDto" parameterType="Long">
+        SELECT
+            id
+             , name
+             , price
+             , source
+             , shots
+        FROM
+            coffee_tbl
+        WHERE
+            id = #{id}
+    </select>
+
+    <select id="count" resultType="Integer">
+        SELECT
+            COUNT(*) AS totalPage
+        FROM
+            coffee_tbl
+    </select>
+
+    <update id="update" parameterType="CoffeeDto">
+        UPDATE
+            coffee_tbl
+        SET
+            id = #{id}
+          , name = #{name}
+          , price = #{price}
+          , source = #{source}
+          , shots = #{shots}
+        WHERE
+            id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="Long">
+        DELETE FROM
+            coffee_tbl
+        WHERE
+            id = #{id}
+    </delete>
+</mapper>
