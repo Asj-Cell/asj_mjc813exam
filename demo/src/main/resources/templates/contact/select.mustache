@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>연락처 상세 | Premium Contact Detail</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <style>
+        /* Reset & 기본 세팅 */
+        * {
+            margin: 0; padding: 0; box-sizing: border-box;
+        }
+        html, body {
+            height: 100%;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background:
+                    radial-gradient(circle at 20% 30%, #a2b9fc, transparent 70%),
+                    radial-gradient(circle at 80% 70%, #8f94fb, transparent 70%),
+                    linear-gradient(135deg, #f0f4ff 0%, #d4e0ff 100%);
+            overflow-x: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+            position: relative;
+            color: #2c3e50;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            user-select: none;
+        }
+
+        /* 부드러운 구름 패턴 애니메이션 */
+        @keyframes drift {
+            0% { background-position: 0 0; }
+            100% { background-position: 1000px 0; }
+        }
+        body::before {
+            content: "";
+            position: fixed;
+            top: -120px; left: -120px; right: -120px; bottom: -120px;
+            background: url('https://www.transparenttextures.com/patterns/clouds.png') repeat;
+            opacity: 0.12;
+            filter: blur(15px);
+            animation: drift 130s linear infinite;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* 컨테이너 */
+        .container-contact {
+            position: relative;
+            max-width: 480px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.75);
+            border-radius: 25px;
+            box-shadow:
+                    0 25px 50px rgba(102, 126, 234, 0.3),
+                    0 15px 30px rgba(0, 0, 0, 0.08);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1.8px solid rgba(255, 255, 255, 0.45);
+            padding: 50px 40px 60px;
+            z-index: 1;
+            transition: box-shadow 0.35s ease;
+        }
+        .container-contact:hover {
+            box-shadow:
+                    0 30px 80px rgba(102, 126, 234, 0.45),
+                    0 20px 50px rgba(0, 0, 0, 0.12);
+        }
+
+        /* 헤더 */
+        .header-contact {
+            font-size: 1.7rem;
+            font-weight: 900;
+            text-align: center;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            color: #fff;
+            padding: 18px 0;
+            border-radius: 20px 20px 0 0;
+            box-shadow: 0 6px 25px rgba(102, 126, 234, 0.6);
+            letter-spacing: 0.1em;
+            user-select: none;
+            margin: -50px -40px 40px;
+        }
+
+        /* 프로필 아이콘 */
+        .profile-icon {
+            width: 110px;
+            height: 110px;
+            margin: 0 auto 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            box-shadow:
+                    0 12px 28px rgba(102, 126, 234, 0.6),
+                    inset 0 2px 10px rgba(255,255,255,0.3);
+            color: white;
+            font-size: 4.8rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: box-shadow 0.3s ease;
+            user-select: none;
+        }
+        .profile-icon:hover {
+            box-shadow:
+                    0 16px 40px rgba(102, 126, 234, 0.85),
+                    inset 0 3px 15px rgba(255,255,255,0.4);
+            cursor: default;
+        }
+
+        /* 리스트 스타일 */
+        ul.contact-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        ul.contact-list li {
+            display: flex;
+            padding: 16px 20px;
+            margin-bottom: 12px;
+            border-radius: 14px;
+            background: rgba(255,255,255,0.8);
+            box-shadow:
+                    0 4px 12px rgba(102, 126, 234, 0.15);
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+            align-items: center;
+        }
+        ul.contact-list li:last-child {
+            margin-bottom: 0;
+        }
+        ul.contact-list li:hover {
+            background: rgba(102, 126, 234, 0.15);
+            box-shadow:
+                    0 6px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        ul.contact-list li strong {
+            width: 140px;
+            font-weight: 700;
+            color: #445678;
+            user-select: text;
+        }
+        ul.contact-list li span {
+            flex: 1;
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: #2f3a57;
+            user-select: text;
+            word-break: break-word;
+        }
+
+        /* 뒤로가기 버튼 */
+        .btn-back {
+            display: block;
+            width: 220px;
+            margin: 48px auto 0;
+            padding: 14px 0;
+            border-radius: 30px;
+            font-weight: 900;
+            font-size: 1.15rem;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            color: #fff;
+            text-align: center;
+            text-decoration: none;
+            box-shadow: 0 12px 32px rgba(102, 126, 234, 0.55);
+            transition: background 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+            user-select: none;
+        }
+        .btn-back:hover,
+        .btn-back:focus {
+            background: linear-gradient(90deg, #5a67d8, #5e4b9f);
+            box-shadow: 0 16px 44px rgba(90, 103, 216, 0.75);
+            transform: translateY(-3px);
+            outline: none;
+            text-decoration: none;
+        }
+
+        /* 상단 타이틀 링크 */
+        h1.title-link {
+            position: fixed;
+            top: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 2.8rem;
+            font-weight: 900;
+            color: #364fc7;
+            cursor: pointer;
+            user-select: none;
+            z-index: 10;
+            transition: color 0.25s ease;
+            text-shadow: 0 2px 6px rgba(102, 126, 234, 0.6);
+            background: rgba(255,255,255,0.7);
+            padding: 14px 28px;
+            border-radius: 35px;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.35);
+            text-decoration: none;
+        }
+        h1.title-link:hover {
+            color: #5a67d8;
+            box-shadow: 0 12px 40px rgba(102, 126, 234, 0.6);
+            text-decoration: none;
+        }
+
+        /* 반응형 */
+        @media (max-width: 576px) {
+            .container-contact {
+                max-width: 100%;
+                padding: 40px 30px 50px;
+                border-radius: 20px;
+            }
+            h1.title-link {
+                font-size: 2.3rem;
+                padding: 12px 22px;
+                top: 20px;
+            }
+            .profile-icon {
+                width: 85px;
+                height: 85px;
+                font-size: 3.8rem;
+                margin-bottom: 32px;
+            }
+            ul.contact-list li {
+                padding: 14px 16px;
+                margin-bottom: 10px;
+            }
+            ul.contact-list li strong {
+                width: 110px;
+                font-size: 1rem;
+            }
+            ul.contact-list li span {
+                font-size: 1rem;
+            }
+            .btn-back {
+                width: 100%;
+                max-width: 280px;
+                margin: 36px auto 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+
+
+<main class="container-contact" role="region" aria-labelledby="contact-detail-title">
+    <header class="header-contact" id="contact-detail-title" tabindex="0">
+        📇 연락처 상세정보
+    </header>
+
+    <div class="profile-icon" aria-hidden="true" title="사용자 아이콘">👤</div>
+
+    <ul class="contact-list" role="list">
+        <li><strong>ID:</strong> <span>{{select.id}}</span></li>
+        <li><strong>이름:</strong> <span>{{select.name}}</span></li>
+        <li><strong>전화번호:</strong> <span>{{select.phoneNumber}}</span></li>
+        <li><strong>우편번호:</strong> <span>{{select.zipNumber}}</span></li>
+        <li><strong>이메일:</strong> <span>{{select.email}}</span></li>
+    </ul>
+
+    <a href="/contact/listAll" class="btn-back" role="button" aria-label="목록으로 돌아가기 버튼">← 목록으로 돌아가기</a>
+</main>
+
+</body>
+</html>

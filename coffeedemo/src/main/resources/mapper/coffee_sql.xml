@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mjc813.coffeecrud.coffee.mybatis.CoffeeMybatisMapper">
+    <insert id="insert" parameterType="CoffeeDto" >
+        INSERT INTO coffee_tbl
+        (name
+        , price
+        , source
+        , shots)
+        VALUES
+            (#{name}
+            , #{price}
+            , #{source}
+            , #{shots}
+            )
+    </insert>
+
+    <select id="findAll" resultType="CoffeeDto">
+        SELECT
+            id
+             , name
+             , price
+             , source
+             , shots
+        FROM
+            coffee_tbl
+        ORDER BY
+            id
+    </select>
+
+    <update id="update" parameterType="CoffeeDto">
+        UPDATE coffee_tbl
+        SET
+            name=#{name}
+          , price =#{price}
+          , source =#{source}
+          , shots =#{shots}
+        WHERE id=#{id}
+    </update>
+
+    <delete id="delete" parameterType="CoffeeDto">
+        DELETE FROM coffee_tbl
+        WHERE id =#{id}
+    </delete>
+
+    <select id="findById" parameterType="Integer" resultType= "CoffeeDto">
+        SELECT id,
+               name,
+               price,
+               source,
+               shots
+        FROM coffee_tbl
+        WHERE id = #{id}
+    </select>
+
+</mapper>

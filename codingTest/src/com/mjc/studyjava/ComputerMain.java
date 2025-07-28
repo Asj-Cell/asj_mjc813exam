@@ -15,11 +15,11 @@ public class ComputerMain {
         for (int i = 1; i <= 5; i++) {
             computerList.add(new Computer("이름" + i, i + "", 8 + "", "500", Graphic.GTX_1660, 500 * i, i));
         }
-
-        int sum = computerList.stream()
-                .mapToInt(c -> c.getPrice() * c.getQty())
-                .sum();
-        System.out.println(sum);
+//
+//        int sum = computerList.stream()
+//                .mapToInt(c -> c.getPrice() * c.getQty())
+//                .sum();
+//        System.out.println(sum);
 
         Integer result = computerList.stream()
                 .map(c -> Integer.parseInt(c.getCpu()))
