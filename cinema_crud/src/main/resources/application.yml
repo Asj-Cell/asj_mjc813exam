@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: cinema_crud
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/swimpool_db?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    username: swimmer
+    password: a123456789
+
+server:
+  port: 8184

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mjc813.swimming.swimpool.SwimPoolMybatis">
+
+    <insert id="addPoll" parameterType="SwimPoolDto">
+        INSERT INTO swimpool_tbl (
+            name
+            , ranes
+            , rane_type
+            , phone_number
+            , addr
+        ) VALUES (
+            #{name}
+            , #{ranes}
+            , #{raneType}
+            , #{phoneNumber}
+            , #{addr}
+        )
+    </insert>
+
+    <select id="findAll" resultType="SwimPoolDto">
+        SELECT
+            id
+            , name
+             , ranes
+             , rane_type
+             , phone_number
+             , addr
+
+        FROM swimpool_tbl
+        ORDER BY id
+
+    </select>
+
+    <select id="findById" resultType="SwimPoolDto" parameterType="Long">
+        SELECT
+            id
+             , name
+             , ranes
+             , rane_type
+             , phone_number
+             , addr
+        FROM swimpool_tbl
+        WHERE id = #{id}
+    </select>
+
+    <update id="update" parameterType="SwimPoolDto">
+        UPDATE swimpool_tbl SET
+                 name = #{name}
+                , ranes = #{ranes}
+                , rane_type = #{raneType}
+                , phone_number = #{phoneNumber}
+                , addr = #{addr}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteById" parameterType="Long">
+        DELETE FROM swimpool_tbl
+        WHERE id = #{id}
+    </delete>
+</mapper>

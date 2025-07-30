@@ -5,6 +5,7 @@ import com.mjc813.coffee.dto.PagingDto;
 import com.mjc813.coffee.service.CoffeeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -27,6 +28,7 @@ public class CoffeeController {
         model.addAttribute("rows", rows);
         return "coffee/add";
     }
+
 
     @PostMapping("/insert")
     public String insert(@ModelAttribute CoffeeDto coffeeDto
@@ -102,4 +104,5 @@ public class CoffeeController {
         coffeeService.delete(coffeeDto.getId());
         return "redirect:/coffee/list?page="+pagingDto.getPage()+"&rows="+pagingDto.getRows();
     }
+
 }

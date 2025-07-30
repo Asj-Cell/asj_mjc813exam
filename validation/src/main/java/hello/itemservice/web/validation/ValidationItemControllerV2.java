@@ -139,8 +139,6 @@ public class ValidationItemControllerV2 {
         log.info("target = {}",bindingResult.getTarget());
         if (!StringUtils.hasText(item.getItemName())) {
             bindingResult.rejectValue("itemName","required");
-
-
         }
         if (item.getPrice() == null || item.getPrice() < 1000 || item.getPrice() > 1000_000) {
             bindingResult.rejectValue("price","range",new Object[]{1000,1000000},null);

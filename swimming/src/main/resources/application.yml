@@ -1,0 +1,27 @@
+spring:
+  application:
+    name: swimming
+  datasource:
+    driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+    url: jdbc:log4jdbc:mysql://localhost:3306/swimpool_db?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    username: swimmer
+    password: a123456789
+  mustache:
+    suffix: .html
+    enabled: true
+    charset: UTF-8
+
+server:
+  port: 8088
+  servlet:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+
+mybatis:
+  mapper-locations: classpath:mapper/**/*.xml
+  type-aliases-package: com.mjc813.swimming
+  configuration:
+    map-underscore-to-camel-case: true
+

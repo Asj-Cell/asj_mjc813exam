@@ -1,11 +1,13 @@
 package hello.itemservice.domain.item;
 
 import lombok.Data;
+import org.springframework.validation.annotation.Validated;
 
 @Data
 public class Item {
 
     private Long id;
+
     private String itemName;
     private Integer price;
     private Integer quantity;
