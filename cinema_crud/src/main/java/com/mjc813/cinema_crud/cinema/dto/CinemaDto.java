@@ -14,7 +14,7 @@ public class CinemaDto {
     private Long id;
     private String name;
     private Long genreId;
-    private String playId;
+    private String playTime;
     private String casts;
     private String description;
     private Integer restrictAge;
