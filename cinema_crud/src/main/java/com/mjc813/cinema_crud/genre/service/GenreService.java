@@ -16,4 +16,12 @@ public class GenreService {
         genreMybatisMapper.insert(dto);
     }
 
+    public void update(GenreDto dto){
+        genreMybatisMapper.update(dto);
+    }
+
+    public void delete(Long id){
+        genreMybatisMapper.delete(id);
+    }
+
 }

@@ -20,8 +20,49 @@
                          )
     </insert>
 
+    <select id="findById" parameterType="Long" resultType="CinemaDto">
+        SELECT id,
+               name,
+               genre_id,
+               play_time,
+               casts,
+               description,
+               restrict_age
+        FROM cinema_tbl
+        WHERE id = #{id}
 
 
+    </select>
 
+    <select id="findByWhere" resultType="CinemaGenreDto">
+        SELECT
+            ct.id
+             , ct.name
+             , gt.name AS genre
+             , ct.play_time
+             , ct.casts
+             , ct.description
+             , ct.restrict_age
+        FROM cinema_tbl AS ct
+        INNER JOIN genre_tbl AS gt ON ct.genre_id = gt.id
+        ORDER BY ct.id DESC
+    </select>
+
+    <update id="update" parameterType="CinemaDto">
+        UPDATE cinema_tbl SET
+            id = #{id},
+            name = #{name},
+            genre_id = #{genreId},
+            play_time = #{playTime},
+            casts = #{casts},
+            description =#{description},
+            restrict_age =#{restrictAge}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="Long">
+        DELETE FROM cinema_tbl
+        WHERE id = #{id}
+    </delete>
 
 </mapper>

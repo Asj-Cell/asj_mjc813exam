@@ -10,7 +10,8 @@ import lombok.*;
 @Builder
 public class ResponseDto {
 
-    private Object resultData;
     private String message;
     private Integer resultCode;
+    private Object resultData;
+
 }
