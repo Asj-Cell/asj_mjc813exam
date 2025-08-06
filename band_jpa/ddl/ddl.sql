@@ -3,7 +3,7 @@ CREATE USER 'band_user'@'%' IDENTIFIED BY 'band!@#$1234';
 GRANT ALL PRIVILEGES ON band_db . * TO 'band_user'@'%' WITH GRANT OPTION;
 FLUSH PRIVILEGES;
 
-      -- band_db.band_tbl definition
+ -- band_db.band_tbl definition
 
 CREATE TABLE `band_tbl` (
                             `id` bigint unsigned NOT NULL AUTO_INCREMENT,

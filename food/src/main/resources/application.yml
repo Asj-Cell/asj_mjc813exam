@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: food_web
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/food_db?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    username: food_user
+    password: a123456789
+  mustache:
+    charset: UTF-8
+    suffix: .html
+    servlet:
+      cache: false
+  jpa:
+    generate-ddl: true
+    show-sql: true
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    hibernate:
+      ddl-auto: update
+
+server:
+  port: 8085
