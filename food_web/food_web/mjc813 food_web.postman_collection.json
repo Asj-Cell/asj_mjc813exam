@@ -1,0 +1,709 @@
+{
+	"info": {
+		"_postman_id": "e0455547-5276-4039-97e7-62f97bc4eb9b",
+		"name": "mjc813 food_web",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "16448427"
+	},
+	"item": [
+		{
+			"name": "food_category",
+			"item": [
+				{
+					"name": "food_category insert",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"부식\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8866/api/v1/food_category",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8866",
+							"path": [
+								"api",
+								"v1",
+								"food_category"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "food_category update",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 1\r\n    , \"name\": \"주주식\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8866/api/v1/food_category/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8866",
+							"path": [
+								"api",
+								"v1",
+								"food_category",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "food_category delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8866/api/v1/food_category/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8866",
+							"path": [
+								"api",
+								"v1",
+								"food_category",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "food_category findById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8866/api/v1/food_category/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8866",
+							"path": [
+								"api",
+								"v1",
+								"food_category",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "food_category findAll",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8866/api/v1/food_category",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8866",
+							"path": [
+								"api",
+								"v1",
+								"food_category"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "food_category findByNameContains",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8866/api/v1/food_category/search?name=&page=0&size=2&sort=id,desc&sort=name,desc",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8866",
+							"path": [
+								"api",
+								"v1",
+								"food_category",
+								"search"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": ""
+								},
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "2"
+								},
+								{
+									"key": "sort",
+									"value": "id,desc"
+								},
+								{
+									"key": "sort",
+									"value": "name,desc"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ingredient",
+			"item": [
+				{
+					"name": "ingredient insert",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"44444\"\r\n    , \"ingredientCategoryDto\": {\r\n        \"id\": 1\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8866/api/v1/ingredient",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8866",
+							"path": [
+								"api",
+								"v1",
+								"ingredient"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ingredient update",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 5\r\n    , \"name\": \"두부\"\r\n    , \"ingredientCategoryId\": 5\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8866/api/v1/ingredient/5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8866",
+							"path": [
+								"api",
+								"v1",
+								"ingredient",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ingredient delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8866/api/v1/ingredient/6",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8866",
+							"path": [
+								"api",
+								"v1",
+								"ingredient",
+								"6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ingredient findById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8866/api/v1/ingredient/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8866",
+							"path": [
+								"api",
+								"v1",
+								"ingredient",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ingredient findAll",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8866/api/v1/ingredient",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8866",
+							"path": [
+								"api",
+								"v1",
+								"ingredient"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Food",
+			"item": [
+				{
+					"name": "food insert",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"44444\"\r\n    , \"spicyLevel\": 0\r\n    , \"sweetLevel\": 0\r\n    , \"sourLevel\": 0\r\n    , \"saltyLevel\": 0\r\n    , \"ingredientId\": 1\r\n    , \"foodCategoryId\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8866/api/v1/food",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8866",
+							"path": [
+								"api",
+								"v1",
+								"food"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "food update",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\" : 1\r\n    , \"name\": \"aaaaa\"\r\n    , \"spicyLevel\": 3\r\n    , \"sweetLevel\": 5\r\n    , \"sourLevel\": 2\r\n    , \"saltyLevel\": 1\r\n    , \"ingredientId\": 2\r\n    , \"foodCategoryId\": 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8866/api/v1/food/5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8866",
+							"path": [
+								"api",
+								"v1",
+								"food",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "food delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8866/api/v1/food/6",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8866",
+							"path": [
+								"api",
+								"v1",
+								"food",
+								"6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "food findById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8866/api/v1/food/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8866",
+							"path": [
+								"api",
+								"v1",
+								"food",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "food findAll",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8866/api/v1/food",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8866",
+							"path": [
+								"api",
+								"v1",
+								"food"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ingredient_category",
+			"item": [
+				{
+					"name": "ingredient_category insert",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"가공식품\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8866/api/v1/ingredient_category",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8866",
+							"path": [
+								"api",
+								"v1",
+								"ingredient_category"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ingredient_category update",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 1\r\n    , \"name\": \"향신료\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8866/api/v1/ingredient_category/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8866",
+							"path": [
+								"api",
+								"v1",
+								"ingredient_category",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ingredient_category delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8866/api/v1/ingredient_category/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8866",
+							"path": [
+								"api",
+								"v1",
+								"ingredient_category",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ingredient_category findById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8866/api/v1/ingredient_category/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8866",
+							"path": [
+								"api",
+								"v1",
+								"ingredient_category",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ingredient_category findAll",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8866/api/v1/ingredient_category",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8866",
+							"path": [
+								"api",
+								"v1",
+								"ingredient_category"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "food_ingredient",
+			"item": [
+				{
+					"name": "food_ingredient insert",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"foodId\": 1\r\n    , \"ingredientId\": 2\r\n    , \"capacity\": 200\r\n    , \"unit\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8866/api/v1/food_ingredient",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8866",
+							"path": [
+								"api",
+								"v1",
+								"food_ingredient"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "food_ingredient update",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 2\r\n    , \"foodId\": 1\r\n    , \"ingredientId\": 3\r\n    , \"capacity\": 50\r\n    , \"unit\": 0\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8866/api/v1/food_ingredient/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8866",
+							"path": [
+								"api",
+								"v1",
+								"food_ingredient",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "food_ingredient delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8866/api/v1/food_ingredient/5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8866",
+							"path": [
+								"api",
+								"v1",
+								"food_ingredient",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "food_ingredient findById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8866/api/v1/food_ingredient/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8866",
+							"path": [
+								"api",
+								"v1",
+								"food_ingredient",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "food_ingredient findAll",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8866/api/v1/food_ingredient",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8866",
+							"path": [
+								"api",
+								"v1",
+								"food_ingredient"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

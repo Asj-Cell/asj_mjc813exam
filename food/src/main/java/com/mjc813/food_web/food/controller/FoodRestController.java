@@ -1,5 +1,6 @@
 package com.mjc813.food_web.food.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mjc813.food_web.common.ResponseDto;
 import com.mjc813.food_web.food.dto.FoodDto;
 import com.mjc813.food_web.food.dto.FoodEntity;
@@ -22,6 +23,8 @@ public class FoodRestController {
 
     @Autowired
     private FoodService foodService;
+
+    private ObjectMapper mapper = new ObjectMapper();
 
     @PostMapping("")
     public ResponseEntity<ResponseDto> insert(@Validated @RequestBody FoodDto dto){
@@ -47,6 +50,8 @@ public class FoodRestController {
 
     @GetMapping("/{id}")
     public ResponseEntity<ResponseDto> findById(@PathVariable("id") Long id){
+
+
         try{
             FoodEntity entity = this.foodService.findById(id);
             return ResponseEntity.ok(new ResponseDto("success", 10000, entity));

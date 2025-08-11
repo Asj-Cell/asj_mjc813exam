@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>재료 타입</title>
+    {{> ./include/css}}
+</head>
+<body>
+
+{{> ./include/topmenu}}
+<div class="container">
+    <div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="page-header">
+                    <h1 id="tables">재료 타입</h1>
+                </div>
+                <p>
+                    <button type="button" id="showAddModalButton" class="btn btn-primary">add</button>
+                </p>
+                <div>
+                    <nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="light">
+                        <div class="container-fluid">
+                            <a class="navbar-brand" href="#">Navbar</a>
+                            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+                                <span class="navbar-toggler-icon"></span>
+                            </button>
+
+                            <div class="collapse navbar-collapse" id="navbarColor01">
+                                <ul class="navbar-nav me-auto">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" href="#">Home
+                                            <span class="visually-hidden">(current)</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#">Features</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#">Pricing</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#">About</a>
+                                    </li>
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item" href="#">Action</a>
+                                            <a class="dropdown-item" href="#">Another action</a>
+                                            <a class="dropdown-item" href="#">Something else here</a>
+                                            <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" href="#">Separated link</a>
+                                        </div>
+                                    </li>
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" id="pageSize">10</a>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item" href="javascript:void(0);" onclick="$.setPageSize(5);">5</a>
+                                            <a class="dropdown-item" href="javascript:void(0);" onclick="$.setPageSize(10);">10</a>
+                                            <a class="dropdown-item" href="javascript:void(0);" onclick="$.setPageSize(20);">20</a>
+                                            <a class="dropdown-item" href="javascript:void(0);" onclick="$.setPageSize(30);">30</a>
+                                            <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" href="#">Separated link</a>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <form class="d-flex" id="searchForm">
+                                    <input id="searchText" class="form-control me-sm-2" type="search" placeholder="검색">
+                                    <button id="searchButton" class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+                                </form>
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+                <div >
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th scope="col">ID<span id="id_desc" class="sortButton sortDesc">▼</span><span id="id_asc" class="sortButton sortAsc">△</span></th>
+                            <th scope="col">Name<span id="name_desc" class="sortButton sortDesc">▽</span><span id="name_asc" class="sortButton sortAsc">△</span></th>
+                        </tr>
+                        </thead>
+                        <tbody id="listBody">
+                        <tr>
+                            <th scope="row">Default</th>
+                            <td>Column content</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <ul class="pagination" id="paginationUL"></ul>
+    </div>
+    <div class="bs-docs-section">
+        <div id="modal_box_add" style="display: none" class="row">
+            <div class="col-lg-12">
+                <h2>Modals</h2>
+                <div class="bs-component">
+                    <div class="modal">
+                        <div class="modal-dialog" role="document">
+                            <div id="modalDialog" class="modal-content">
+                                <div class="modal-header">
+                                    <h5 id="modal_title" class="modal-title"></h5>
+                                </div>
+                                <div class="modal-body">
+                                    <div>
+                                        <div>
+                                            <label class="col-form-label mt-4" for="id">id</label>
+                                            <input type="text" class="form-control" placeholder="id" id="id" disabled="">
+                                        </div>
+                                        <div>
+                                            <label class="col-form-label mt-4" for="name">타입</label>
+                                            <input type="text" class="form-control" placeholder="재료 타입" id="name" maxlength="40">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" id="saveButton" class="btn btn-primary">저장</button>
+                                    <button type="button" id="deleteButton" class="btn btn-primary">삭제</button>
+                                    <button type="button" class="btn btn-secondary modalCloseButton" data-bs-dismiss="modal">닫기</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal_bg" style="display: none"></div>
+    </div>
+    {{> ./include/footer}}
+</div>
+
+<script src="/bootswatch/brite/js/bootstrap.bundle.min.js"></script>
+<script src="/bootswatch/brite/js/prism.js" data-manual></script>
+<script src="/bootswatch/brite/js/custom.js"></script>
+<script src="/js/jquery-3.7.1.min.js"></script>
+
+<script>
+    let modalMode = 1;
+    let sortString = "id,desc";
+    let curPage = 1;
+
+    (function ($) {
+        $.setPageSize = (num) => {
+            $("#pageSize").text(num);
+            $.loadData($.getPagable());
+        };
+
+        $.getPagable = () => {
+            return {
+                "name": $("#searchText").val(),
+                "page": curPage - 1,
+                "size": $("#pageSize").text(),
+                "sort": sortString,
+            };
+        };
+
+        $.loadData = (pagable) => {
+            let url = `/api/v1/ingredient_category/search?name=${pagable.name}&page=${pagable.page}&size=${pagable.size}&sort=${pagable.sort}`;
+            $.ajax({
+                url: url,
+                method: 'GET'
+            }).done(function(data, textStatus, jqXHR) {
+                console.log("Success:", data.result);
+                $.printList(data.result);
+            }).fail(function(jqXHR, textStatus, errorThrown) {
+                console.log("Error:", textStatus, errorThrown);
+                alert(`${jqXHR.responseJSON.code} : ${jqXHR.responseJSON.message}`);
+            });
+        };
+
+        $.printList = function(result) {
+            $.makeDataRows(result.content);
+            $.makePageButtons(result);
+        };
+
+        $.makeOneRow = function(item) {
+            return `<tr onclick="$.showInfo(${item.id})">
+                        <th scope="row">${item.id}</th>
+                        <td>${item.name}</td>
+                    </tr>`;
+        };
+
+        $.makeDataRows = function(list) {
+            let html = list.map(item => $.makeOneRow(item)).join('');
+            $("#listBody").empty().append(html);
+        };
+
+        $.makePageButtons = function(result) {
+            let html = "";
+            let curPageNum = result.pageable.pageNumber + 1;
+            let totalPages = result.totalPages;
+
+            html += $.makePrevButton(curPageNum);
+            html += $.makeFSTFFButtons(curPageNum, totalPages);
+            html += $.makeNextButton(curPageNum, totalPages);
+            $("#paginationUL").empty().append(html);
+        };
+
+        $.makePrevButton = function(curPage) {
+            if (curPage <= 1) {
+                return `<li class="page-item disabled">
+                            <a class="page-link" href="#" id="pagePrev">«</a>
+                        </li>`;
+            } else {
+                return `<li class="page-item">
+                            <a class="page-link" href="javascript:$.goPage(${curPage - 1});" id="pagePrev">«</a>
+                        </li>`;
+            }
+        };
+
+        $.makeFSTFFButtons = function(curPage, maxPage) {
+            let startPage = Math.max(1, curPage - 2);
+            let endPage = Math.min(maxPage, startPage + 4);
+            if (endPage - startPage < 4 && maxPage > 4) {
+                startPage = Math.max(1, endPage - 4);
+            }
+            let html = "";
+            for (let page = startPage; page <= endPage; page++) {
+                if (page === curPage) {
+                    html += `<li class="page-item active">
+                                <a class="page-link" href="javascript:$.goPage(${page});">${page}</a>
+                            </li>`;
+                } else {
+                    html += `<li class="page-item">
+                                <a class="page-link" href="javascript:$.goPage(${page});">${page}</a>
+                            </li>`;
+                }
+            }
+            return html;
+        };
+
+        $.makeNextButton = function(curPage, maxPage) {
+            if (curPage >= maxPage) {
+                return `<li class="page-item disabled">
+                            <a class="page-link" href="#" id="pageNext">»</a>
+                        </li>`;
+            } else {
+                return `<li class="page-item">
+                            <a class="page-link" href="javascript:$.goPage(${curPage + 1});" id="pageNext">»</a>
+                        </li>`;
+            }
+        };
+
+        $.goPage = function(goPage) {
+            curPage = goPage;
+            $.loadData($.getPagable());
+        };
+
+        $.getSortButton = (tag) => {
+            let str = $(tag).attr('id');
+            let arr = str.split("_");
+            let req = `${arr[0]},${arr[1]}`;
+
+            $(".sortDesc").text("▽");
+            $(".sortAsc").text("△");
+            if (arr[1] === "desc") {
+                $("#" + str).text("▼");
+            } else {
+                $("#" + str).text("▲");
+            }
+
+            sortString = req;
+            $.loadData($.getPagable());
+        };
+
+        $.insert = function() {
+            let dataMember = {
+                "name": $("#name").val(),
+            };
+
+            $.ajax({
+                url: '/api/v1/ingredient_category',
+                type: "POST",
+                data: JSON.stringify(dataMember),
+                contentType: 'application/json',
+            }).done(function(data) {
+                console.log("Success:", data.result);
+                $.clearModalForm();
+                $.loadData($.getPagable());
+                $(".modalCloseButton").trigger("click");
+            }).fail(function(jqXHR) {
+                console.log("Error:", jqXHR);
+                alert(`${jqXHR.responseJSON.code} : ${jqXHR.responseJSON.message}`);
+            });
+        };
+
+        $.clearModalForm = () => {
+            $("#id").val("");
+            $("#name").val("");
+        };
+
+        $.showModal = (mode) => {
+            $('#modal_box_add').fadeIn(500);
+            $('.modal_bg').fadeIn(500);
+            if (mode === 1) {
+                $("#modal_title").text("입력 창");
+                $("#deleteButton").hide();
+            } else if (mode === 2) {
+                $("#modal_title").text("보기/수정 창");
+                $("#deleteButton").show();
+            }
+            modalMode = mode;
+        };
+
+        $.showInfo = function(id) {
+            $.ajax({
+                url: '/api/v1/ingredient_category/' + id,
+                method: 'GET'
+            }).done(function(data) {
+                console.log("Success:", data.result);
+                $.printOne(data.result);
+            }).fail(function(jqXHR) {
+                console.log("Error:", jqXHR);
+                alert(`${jqXHR.responseJSON.code} : ${jqXHR.responseJSON.message}`);
+            });
+        };
+
+        $.printOne = function(item) {
+            if (item == null || item === undefined) {
+                return;
+            }
+            $("#id").val(item.id);
+            $("#name").val(item.name);
+            $.showModal(2);
+        };
+
+        $.update = function() {
+            let dataMember = {
+                "id": $("#id").val(),
+                "name": $("#name").val(),
+            };
+
+            $.ajax({
+                url: '/api/v1/ingredient_category/' + $("#id").val(),
+                type: "PATCH",
+                data: JSON.stringify(dataMember),
+                contentType: 'application/json',
+            }).done(function(data) {
+                console.log("Success:", data.result);
+                $.clearModalForm();
+                $.loadData($.getPagable());
+                $(".modalCloseButton").trigger("click");
+            }).fail(function(jqXHR) {
+                console.log("Error:", jqXHR);
+                alert(`${jqXHR.responseJSON.code} : ${jqXHR.responseJSON.message}`);
+            });
+        };
+
+        $.delete = function() {
+            if (!confirm("정말로 삭제하시겠습니까?")) {
+                return;
+            }
+
+            $.ajax({
+                url: '/api/v1/ingredient_category/' + $("#id").val(),
+                type: "DELETE",
+            }).done(function(data) {
+                console.log("Success:", data.result);
+                $.clearModalForm();
+                $.loadData($.getPagable());
+                $(".modalCloseButton").trigger("click");
+            }).fail(function(jqXHR) {
+                console.log("Error:", jqXHR);
+                alert(`${jqXHR.responseJSON.code} : ${jqXHR.responseJSON.message}`);
+            });
+        };
+    })(jQuery);
+
+    $(document).ready(function(){
+        // 초기 데이터 로딩
+        $.loadData($.getPagable());
+
+        // 이벤트 핸들러
+        $('#showAddModalButton').click(function() {
+            $.clearModalForm();
+            $.showModal(1);
+        });
+
+        $('.modalCloseButton').click(function() {
+
+            $('#modal_box_add').fadeOut();
+            $('.modal_bg').fadeOut();
+        });
+
+        $("#saveButton").click(function() {
+            if (modalMode === 1) {
+                $.insert();
+            } else if (modalMode === 2) {
+                $.update();
+            }
+        });
+
+        $("#deleteButton").click(function() {
+            $.delete();
+        });
+
+        $(".sortButton").click(function() {
+            $.getSortButton(this);
+        });
+
+        $("#searchButton").click(function(event) {
+            event.preventDefault(); // 폼 제출 방지
+            $.loadData($.getPagable());
+        });
+    });
+</script>
+
+<script>
+</script>
+</body>
+</html>
