@@ -3,12 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>재료 정보</title>
-    {{> ./include/css}}
+    <link href="/bootswatch/brite/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* 커스텀 모달 배경/위치 CSS는 더 이상 필요하지 않습니다. */
+    </style>
 </head>
 <body>
 
 
-{{> ./include/topmenu}}
 <div class="container">
     <div>
         <div class="row">
@@ -79,7 +81,7 @@
                         <tr>
                             <th scope="col">ID<span id="id_desc" class="sortButton sortDesc">▼</span><span id="id_asc" class="sortButton sortAsc">△</span></th>
                             <th scope="col">Name<span id="name_desc" class="sortButton sortDesc">▽</span><span id="name_asc" class="sortButton sortAsc">△</span></th>
-                            <th scope="col">IngredientCategoryId<span id="IngredientCategoryId_desc" class="sortButton sortDesc">▽</span><span id="IngredientCategoryId_asc" class="sortButton sortAsc">△</span></th>
+                            <th scope="col">ingredientCategoryEntity.name<span id="ingredientCategoryEntity.name_desc" class="sortButton sortDesc">▽</span><span id="ingredientCategoryEntity.name_asc" class="sortButton sortAsc">△</span></th>
                         </tr>
                         </thead>
                         <tbody id="listBody">
@@ -94,47 +96,39 @@
         </div>
         <ul class="pagination" id="paginationUL"></ul>
     </div>
-    <div class="bs-docs-section">
-        <div id="modal_box_add" style="display: none" class="row">
-            <div class="col-lg-12">
-                <h2>Modals</h2>
-                <div class="bs-component">
-                    <div class="modal">
-                        <div class="modal-dialog" role="document">
-                            <div id="modalDialog" class="modal-content">
-                                <div class="modal-header">
-                                    <h5 id="modal_title" class="modal-title"></h5>
-                                </div>
-                                <div class="modal-body">
-                                    <div>
-                                        <div>
-                                            <label class="col-form-label mt-4" for="id">id</label>
-                                            <input type="text" class="form-control" placeholder="id" id="id" disabled="">
-                                        </div>
-                                        <div>
-                                            <label class="col-form-label mt-4" for="name">관리</label>
-                                            <input type="text" class="form-control" placeholder="재료 관리" id="name" maxlength="40">
-                                        </div>
-                                        <div>
-                                            <label class="col-form-label mt-4" for="name">ingredientCategoryId</label>
-                                            <input type="text" class="form-control" placeholder="ingredientCategoryId" id="ingredientCategoryId" maxlength="40">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" id="saveButton" class="btn btn-primary">저장</button>
-                                    <button type="button" id="deleteButton" class="btn btn-primary">삭제</button>
-                                    <button type="button" class="btn btn-secondary modalCloseButton" data-bs-dismiss="modal">닫기</button>
-                                </div>
-                            </div>
+
+    <div class="modal fade" id="addEditModal" tabindex="-1" aria-labelledby="addEditModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div id="modalDialog" class="modal-content">
+                <div class="modal-header">
+                    <h5 id="modal_title" class="modal-title"></h5>
+                    <button type="button" class="btn-close modalCloseButton" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div>
+                        <div>
+                            <label class="col-form-label mt-4" for="id">id</label>
+                            <input type="text" class="form-control" placeholder="id" id="id" disabled="">
+                        </div>
+                        <div>
+                            <label class="col-form-label mt-4" for="name">관리</label>
+                            <input type="text" class="form-control" placeholder="재료 관리" id="name" maxlength="40">
+                        </div>
+                        <div>
+                            <label class="col-form-label mt-4" for="ingredientCategoryId">카테고리</label>
+                            <select class="form-select" id="ingredientCategoryId">
+                            </select>
                         </div>
                     </div>
                 </div>
+                <div class="modal-footer">
+                    <button type="button" id="saveButton" class="btn btn-primary">저장</button>
+                    <button type="button" id="deleteButton" class="btn btn-primary">삭제</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+                </div>
             </div>
         </div>
-        <div class="modal_bg" style="display: none"></div>
     </div>
-    {{> ./include/footer}}
 </div>
 
 <script src="/bootswatch/brite/js/bootstrap.bundle.min.js"></script>
@@ -185,7 +179,7 @@
             return `<tr onclick="$.showInfo(${item.id})">
                         <th scope="row">${item.id}</th>
                         <td>${item.name}</td>
-                        <td>${item.ingredientCategoryId}</td>
+                        <td>${item.ingredientCategoryEntity.name}</td>
                     </tr>`;
         };
 
@@ -272,6 +266,25 @@
             $.loadData($.getPagable());
         };
 
+        $.loadCategories = function() {
+            $.ajax({
+                url: '/api/v1/ingredient-category',
+                method: 'GET'
+            }).done(function(data) {
+                console.log("Categories loaded:", data.result);
+                $.populateCategoryDropdown(data.result.content);
+            }).fail(function(jqXHR) {
+                console.log("Error loading categories:", jqXHR);
+            });
+        };
+
+        $.populateCategoryDropdown = function(categories) {
+            let html = categories.map(category =>
+                `<option value="${category.id}">${category.name}</option>`
+            ).join('');
+            $("#ingredientCategoryId").empty().append(html);
+        };
+
         $.insert = function() {
             let dataMember = {
                 "name": $("#name").val(),
@@ -283,12 +296,13 @@
                 type: "POST",
                 data: JSON.stringify(dataMember),
                 contentType: 'application/json',
-
             }).done(function(data) {
                 console.log("Success:", data.result);
                 $.clearModalForm();
                 $.loadData($.getPagable());
-                $(".modalCloseButton").trigger("click");
+                // Bootstrap 모달을 닫기
+                const modal = bootstrap.Modal.getInstance(document.getElementById('addEditModal'));
+                modal.hide();
             }).fail(function(jqXHR) {
                 console.log("Error:", jqXHR);
                 alert(`${jqXHR.responseJSON.code} : ${jqXHR.responseJSON.message}`);
@@ -301,9 +315,14 @@
             $("#ingredientCategoryId").val("");
         };
 
+        // 🌟🌟🌟 showModal 함수 수정 🌟🌟🌟
         $.showModal = (mode) => {
-            $('#modal_box_add').fadeIn(500);
-            $('.modal_bg').fadeIn(500);
+            $.loadCategories(); // 모달을 열기 전에 카테고리 목록을 불러옵니다.
+
+            const modalElement = document.getElementById('addEditModal');
+            const modal = new bootstrap.Modal(modalElement);
+            modal.show();
+
             if (mode === 1) {
                 $("#modal_title").text("입력 창");
                 $("#deleteButton").hide();
@@ -333,7 +352,7 @@
             }
             $("#id").val(item.id);
             $("#name").val(item.name);
-            $("#ingredientCategoryId").val(item.ingredientCategoryId);
+            $("#ingredientCategoryId").val(item.ingredientCategoryEntity.id);
             $.showModal(2);
         };
 
@@ -353,7 +372,9 @@
                 console.log("Success:", data.result);
                 $.clearModalForm();
                 $.loadData($.getPagable());
-                $(".modalCloseButton").trigger("click");
+                // Bootstrap 모달을 닫기
+                const modal = bootstrap.Modal.getInstance(document.getElementById('addEditModal'));
+                modal.hide();
             }).fail(function(jqXHR) {
                 console.log("Error:", jqXHR);
                 alert(`${jqXHR.responseJSON.code} : ${jqXHR.responseJSON.message}`);
@@ -372,7 +393,9 @@
                 console.log("Success:", data.result);
                 $.clearModalForm();
                 $.loadData($.getPagable());
-                $(".modalCloseButton").trigger("click");
+                // Bootstrap 모달을 닫기
+                const modal = bootstrap.Modal.getInstance(document.getElementById('addEditModal'));
+                modal.hide();
             }).fail(function(jqXHR) {
                 console.log("Error:", jqXHR);
                 alert(`${jqXHR.responseJSON.code} : ${jqXHR.responseJSON.message}`);
@@ -390,9 +413,12 @@
             $.showModal(1);
         });
 
-        $('.modalCloseButton').click(function() {
-            $('#modal_box_add').fadeOut();
-            $('.modal_bg').fadeOut();
+        // 🌟🌟🌟 모달 닫힘 이벤트 리스너 추가 🌟🌟🌟
+        // '닫기' 버튼 클릭 시 폼이 초기화되도록 합니다.
+        // 기존의 `.modalCloseButton` 클릭 이벤트는 삭제되었습니다.
+        const addEditModal = document.getElementById('addEditModal');
+        addEditModal.addEventListener('hidden.bs.modal', function () {
+            $.clearModalForm();
         });
 
         $("#saveButton").click(function() {
@@ -417,3 +443,5 @@
         });
     });
 </script>
+</body>
+</html>
