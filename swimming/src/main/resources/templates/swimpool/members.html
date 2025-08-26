@@ -42,7 +42,7 @@
                         <input type="text" class="form-control" id="phoneNumber" name="phoneNumber">
                     </div>
                     <div class="d-grid mt-4">
-                        <button type="button" id="insert-button" class="btn btn-primary" data-bs-dismiss="modal">회원가입</button>
+                        <button type="button" id="insert-button" class="btn btn-primary">회원가입</button>
                     </div>
                 </form>
             </div>
@@ -69,7 +69,6 @@
     $(document).ready(function() {
         $.loadData();
 
-        // #insert-button을 클릭했을 때 $.insert() 함수를 호출하도록 연결
         $('#insert-button').on('click', function(event) {
             $.insert();
         });
@@ -112,11 +111,9 @@
         console.log("Get one member with id:", id);
     }
 
-    // insert() 함수는 그대로 유지
     $.insert = () => {
         console.log("insert button clicked");
 
-        // 유효성 검사 로직 추가
         if ($('#name').val() === '' || $('#userName').val() === '' || $('#password').val() === '' || $('#email').val() === '') {
             alert('모든 필수 항목을 입력해주세요.');
             return;
@@ -130,61 +127,40 @@
             "phoneNumber": $('#phoneNumber').val()
         };
 
-        // $.ajax({
-        //     url: '/members',
-        //     type: 'POST',
-        //     contentType: 'application/json',
-        //     data: JSON.stringify(formData),
-        //     dataType: 'json',
-        //     success: function(response) {
-        //         console.log('성공:', response);
-        //         alert('회원가입이 성공적으로 완료되었습니다!');
-        //         $.loadData();
-        //         $('#staticBackdrop').modal('hide');
-        //     },
-        //     error: function(xhr, status, error) {
-        //         console.error('오류:', error);
-        //         alert('회원가입에 실패했습니다. 다시 시도해 주세요.');
-        //     }
-        // });
-
         $.ajax({
             url: '/members',
             type: 'POST',
             contentType: 'application/json',
             data: JSON.stringify(formData),
-            dataType: 'json'})
-            .done(function(a, b, c) {
-                console.log('성공:', response);
+            dataType: 'json'
+        })
+            .done(function(data, textStatus, jqXHR) {
+                console.log('성공:', data);
                 alert('회원가입이 성공적으로 완료되었습니다!');
                 $.loadData();
                 $('#staticBackdrop').modal('hide');
                 $.clear();
-             })
-            .fail(function(a, b, c) {
-                console.error('오류:', error);
+            })
+            .fail(function(jqXHR, textStatus, errorThrown) {
+                console.error('오류:', errorThrown);
                 alert('회원가입에 실패했습니다. 다시 시도해 주세요.');
             });
-
     }
+
     $.clear = function (){
-
-        $("#id").val(""),
-        $("#name").val(""),
-        $("#userName").val(""),
-        $("#password").val(""),
-        $("#email").val(""),
-        $("#phoneNumber").val("")
-        $("#role").val("")
-        $("#maxLock").val("")
+        $("#id").val("");
+        $("#name").val("");
+        $("#userName").val("");
+        $("#password").val("");
+        $("#email").val("");
+        $("#phoneNumber").val("");
+        $("#role").val("");
+        $("#maxLock").val("");
     }
-
 
     $.delete = () => {
         console.log("Delete button clicked");
     }
-
-
 </script>
 </body>
 </html>
