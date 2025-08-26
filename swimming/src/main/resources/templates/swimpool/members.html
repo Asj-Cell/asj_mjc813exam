@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <title>회원가입 모달</title>
+</head>
+<body>
+<div class="container mt-5 text-center">
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+        회원가입
+    </button>
+    <button type="button" onclick="$.update();" class="btn btn-primary">
+        <i class="bi bi-pencil-square"></i> 수정
+    </button>
+    <button type="button" onclick="$.delete();" class="btn btn-danger">
+        <i class="bi bi-trash"></i> 삭제버튼
+    </button>
+</div>
+
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">회원가입</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="signup-form">
+                    <div class="mb-3">
+                        <label for="name" class="form-label">사용자 이름</label>
+                        <input type="text" class="form-control" id="name" name="name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="userName" class="form-label">로그인 아이디</label>
+                        <input type="text" class="form-control" id="userName" name="userName" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">비밀번호</label>
+                        <input type="password" class="form-control" id="password" name="password" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">이메일</label>
+                        <input type="email" class="form-control" id="email" name="email" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="phoneNumber" class="form-label">전화번호</label>
+                        <input type="text" class="form-control" id="phoneNumber" name="phoneNumber">
+                    </div>
+                    <div class="d-grid mt-4">
+                        <button type="button" id="insert-button" class="btn btn-primary" data-bs-dismiss="modal">회원가입</button>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container mt-5">
+    <div class="card">
+        <div class="card-header">
+            회원 목록 <span id="memberCount" class="badge bg-secondary">0</span>
+        </div>
+        <div class="list-group list-group-flush" id="listData">
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<script src="/js/jquery-3.7.1.min.js" ></script>
+<script>
+    $(document).ready(function() {
+        $.loadData();
+
+        // #insert-button을 클릭했을 때 $.insert() 함수를 호출하도록 연결
+        $('#insert-button').on('click', function(event) {
+            $.insert();
+        });
+    });
+
+    $.loadData = () => {
+        $.ajax({
+            url: '/members/list',
+            method: 'GET'
+        }).done(function (data, textStatus, jqXHR) {
+            console.log("Success:", data.responseData);
+            $.printList(data.responseData);
+            $('#memberCount').text(data.responseData ? data.responseData.length : 0);
+        }).fail(function (jqXHR, textStatus, errorThrown) {
+            console.error("Error:", textStatus, errorThrown);
+            alert("멤버 목록을 불러오는데 실패했습니다.");
+        });
+    }
+
+    $.printList = function (data) {
+        $("#listData").empty();
+        if (data && data.length > 0) {
+            for (let i = 0; i < data.length; i++) {
+                let memberDto = data[i];
+                let one = `
+                    <div class="list-group-item list-group-item-action d-flex flex-column align-items-start py-3" onclick="$.getOne(${memberDto.id});">
+                        <h6 class="mb-1">사용자 이름: ${memberDto.name}</h6>
+                        <small class="text-muted">로그인 아이디: ${memberDto.userName}</small>
+                        <small class="text-muted">이메일: ${memberDto.email}</small>
+                        <small class="text-muted">전화번호: ${memberDto.phoneNumber || '정보 없음'}</small>
+                    </div>`;
+                $("#listData").append(one);
+            }
+        } else {
+            $("#listData").append('<div class="alert alert-info text-center" role="alert">등록된 멤버가 없습니다.</div>');
+        }
+    }
+
+    $.getOne = (id) => {
+        console.log("Get one member with id:", id);
+    }
+
+    // insert() 함수는 그대로 유지
+    $.insert = () => {
+        console.log("insert button clicked");
+
+        // 유효성 검사 로직 추가
+        if ($('#name').val() === '' || $('#userName').val() === '' || $('#password').val() === '' || $('#email').val() === '') {
+            alert('모든 필수 항목을 입력해주세요.');
+            return;
+        }
+
+        const formData = {
+            "name": $('#name').val(),
+            "userName": $('#userName').val(),
+            "password": $('#password').val(),
+            "email": $('#email').val(),
+            "phoneNumber": $('#phoneNumber').val()
+        };
+
+        // $.ajax({
+        //     url: '/members',
+        //     type: 'POST',
+        //     contentType: 'application/json',
+        //     data: JSON.stringify(formData),
+        //     dataType: 'json',
+        //     success: function(response) {
+        //         console.log('성공:', response);
+        //         alert('회원가입이 성공적으로 완료되었습니다!');
+        //         $.loadData();
+        //         $('#staticBackdrop').modal('hide');
+        //     },
+        //     error: function(xhr, status, error) {
+        //         console.error('오류:', error);
+        //         alert('회원가입에 실패했습니다. 다시 시도해 주세요.');
+        //     }
+        // });
+
+        $.ajax({
+            url: '/members',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(formData),
+            dataType: 'json'})
+            .done(function(a, b, c) {
+                console.log('성공:', response);
+                alert('회원가입이 성공적으로 완료되었습니다!');
+                $.loadData();
+                $('#staticBackdrop').modal('hide');
+             })
+            .fail(function(a, b, c) {
+                console.error('오류:', error);
+                alert('회원가입에 실패했습니다. 다시 시도해 주세요.');
+            });
+    }
+
+    $.delete = () => {
+        console.log("Delete button clicked");
+    }
+
+
+</script>
+</body>
+</html>

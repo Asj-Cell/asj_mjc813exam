@@ -21,8 +21,6 @@ public class SwimPoolRestController {
 
     @GetMapping("/list")
     public ResponseEntity<ResponseDto> loadData() {
-
-
         try {
             List<SwimPoolDto> arraylist = this.swimPoolService.findAll();
             return ResponseEntity.ok(this.getResponseDto(ResponseCode.SUCCESS, "ok", arraylist));
