@@ -9,12 +9,7 @@
     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
         회원가입
     </button>
-    <button type="button" onclick="$.update();" class="btn btn-primary">
-        <i class="bi bi-pencil-square"></i> 수정
-    </button>
-    <button type="button" onclick="$.delete();" class="btn btn-danger">
-        <i class="bi bi-trash"></i> 삭제버튼
-    </button>
+
 </div>
 
 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -164,12 +159,26 @@
                 alert('회원가입이 성공적으로 완료되었습니다!');
                 $.loadData();
                 $('#staticBackdrop').modal('hide');
+                $.clear();
              })
             .fail(function(a, b, c) {
                 console.error('오류:', error);
                 alert('회원가입에 실패했습니다. 다시 시도해 주세요.');
             });
+
     }
+    $.clear = function (){
+
+        $("#id").val(""),
+        $("#name").val(""),
+        $("#userName").val(""),
+        $("#password").val(""),
+        $("#email").val(""),
+        $("#phoneNumber").val("")
+        $("#role").val("")
+        $("#maxLock").val("")
+    }
+
 
     $.delete = () => {
         console.log("Delete button clicked");
